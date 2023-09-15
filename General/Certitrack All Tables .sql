@@ -4,6 +4,17 @@ GO
 USE [CertiTrack]
 GO
 
+
+CREATE TABLE [Employee] (
+    [EmpId] VARCHAR(10) PRIMARY KEY
+    ,[EmpName] VARCHAR(100)
+    ,[Email] VARCHAR(200)
+    ,[Technology] VARCHAR(50)
+    ,[Lead] VARCHAR(10)
+    ,[WorkLocation] VARCHAR(50)
+    )
+GO
+
 CREATE TABLE [CertificateList] (
     [CertificateID] INT IDENTITY(1000, 1) PRIMARY KEY
     ,[CertificateName] VARCHAR(200)
@@ -24,15 +35,6 @@ CREATE TABLE [CertificateList] (
     )
 GO
 
-CREATE TABLE [Employee] (
-    [EmpId] VARCHAR(10) PRIMARY KEY
-    ,[EmpName] VARCHAR(100)
-    ,[Email] VARCHAR(200)
-    ,[Technology] VARCHAR(50)
-    ,[Lead] VARCHAR(10)
-    ,[WorkLocation] VARCHAR(50)
-    )
-GO
 
 CREATE TABLE [Certifications] (
     [CertificationId] INT IDENTITY PRIMARY KEY
