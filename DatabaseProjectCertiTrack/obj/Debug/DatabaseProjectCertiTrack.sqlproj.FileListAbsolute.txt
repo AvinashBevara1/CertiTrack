@@ -1,3 +1,6 @@
 e:\Hackathon\Hackathon\test-project\DatabaseProjectCertiTrack\obj\Debug\DatabaseProjectCertiTrack.sqlproj.AssemblyReference.cache
 e:\Hackathon\Hackathon\test-project\DatabaseProjectCertiTrack\obj\Debug\DatabaseProjectCertiTrack.dll
 e:\Hackathon\Hackathon\test-project\DatabaseProjectCertiTrack\obj\Debug\DatabaseProjectCertiTrack.pdb
+e:\Hackathon\test-project\DatabaseProjectCertiTrack\obj\Debug\DatabaseProjectCertiTrack.sqlprojAssemblyReference.cache
+e:\Hackathon\test-project\DatabaseProjectCertiTrack\obj\Debug\DatabaseProjectCertiTrack.dll
+e:\Hackathon\test-project\DatabaseProjectCertiTrack\obj\Debug\DatabaseProjectCertiTrack.pdb
