@@ -1,0 +1,37 @@
+Procedure Names
+
+GET Procs:
+1) GetCompletedCertificationsList
+	(SLECT DISTINCT Provider,CertificateName,CID,COUNT(*) As count FROM CERTIFICATIONS WHERE STATUS = 'COMPLETED' GROUP BY Provider,CertificateIDFK)
+2) GetCertifiedPeople(@CertificateID) (Call GetQuestions in this Proc) -- Sort these lisy by score
+3) GetQuestions(@CertificateID)
+4) GetAnswers(@QuestionID) 
+5) GetMyCertifications(@EmpID)
+5) GetReportersCertifications(@EmpID) -- Recursive CTE
+6) GetCertificationHistory(@CertificateID,@EmpID)
+7) GetReportees(@EmpID) -- While Adding the certificate populate only reportees in the empoyee filed 
+
+INSERT Procs:
+1) AddCertificate(@all Parameters from frontend) -- Check for duplicate data(Use CertificateIDFK and EMPID) -- This will also be called from MangerPage to Assign 
+2) AddQuestion(@CID,@Question,@EmpID)
+3) AddAnswer(@QuestionID,@Answer,@EmpID)
+
+Update Procs:
+1) UpdateCerticate(@CID ,@Type, and other fields) 
+	-- First insert into certification hostory table and then update the main table
+	-- Delete if the Type is delete and the status is other than completed. If Type is Revoke update revoke flag
+	
+2) UpdateQuestion(@QuestionID ,@Question, @EmpID)
+3) UpdateAnswer(@AnswerID,@Type ,@Answer, @EmpID) 
+	-- If Type is vote increase Vote count
+
+
+
+
+
+
+Out of Scope:
+1) GetLearningPath -- This will come from Front End, where the doccument will be stored in Sharepoint
+2) Dynamic Emial
+	A) Email notifications for Revoke, Approval and completion
+	B) Email notifications for Expiry and duedate
