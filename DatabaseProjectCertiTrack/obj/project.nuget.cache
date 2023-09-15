@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "WcG8kB+iqVuO6QbW55CmcovKHk2kQM8Dqv7M5BbqCBGMLk1Tc/F4/PwO/v0a/sOZyxBUe+71n0dot0hbA0Egaw==",
+  "success": true,
+  "projectFilePath": "e:\\Hackathon\\Hackathon\\test-project\\DatabaseProjectCertiTrack\\DatabaseProjectCertiTrack.sqlproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\avinash.bevara\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.0\\microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
+    "C:\\Users\\avinash.bevara\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net46\\1.0.0\\microsoft.netframework.referenceassemblies.net46.1.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
