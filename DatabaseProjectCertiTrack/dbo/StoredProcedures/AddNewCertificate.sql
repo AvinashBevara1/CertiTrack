@@ -70,6 +70,8 @@ BEGIN
 			,@LastUpdatedBy
 			)
 	END
+	ELSE
+		SELECT 'Certification Already Exists' AS [Status]
 END
 GO
 

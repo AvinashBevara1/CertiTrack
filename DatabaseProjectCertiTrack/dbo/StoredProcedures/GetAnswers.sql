@@ -8,7 +8,8 @@
 CREATE PROCEDURE [dbo].[GetAnswers] (@QuestionID INT)
 AS
 BEGIN
-	SELECT S.QuestionID
+	SELECT S.AnswerID
+		,S.QuestionID
 		,S.Answer
 		,E.EmpName
 		,S.AnsweredOn
