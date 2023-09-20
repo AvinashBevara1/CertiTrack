@@ -24,7 +24,7 @@ BEGIN
 		INSERT INTO [dbo].[Questionnaire] (
 			Question
 			,CertificateID
-			,EmpID
+			,CreatedBy
 			,CreatedOn
 			)
 		VALUES (

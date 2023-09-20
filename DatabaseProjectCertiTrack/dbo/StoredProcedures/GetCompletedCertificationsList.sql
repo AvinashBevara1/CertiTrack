@@ -8,16 +8,19 @@
 CREATE  PROCEDURE [dbo].[GetCompletedCertificationsList] 
 AS
 BEGIN
-	SELECT DISTINCT CL.Provider
+	SELECT DISTINCT CL.CertificateID
+		,CL.Provider
 		,CL.CertificateName
 		,CL.CertificateCode
 		,COUNT(*) AS count
 	FROM Certifications C 
 	LEFT JOIN CertificateList CL ON C.CertificateIdFk = CL.CertificateID
 	WHERE C.STATUS = 'COMPLETED'
-	GROUP BY CL.Provider
+	GROUP BY CL.CertificateID
+		,CL.Provider
 		,CL.CertificateName
 		,CL.CertificateCode
+		
 END
 
 GO

@@ -51,8 +51,8 @@ BEGIN
 			,LEVEL
 			,CreatedOn
 			,CreatedBy
-			,LastUpdatedOn
-			,LastUpdatedBy
+			,LastModifiedOn
+			,LastModifiedBy
 			)
 		VALUES (
 			@CertificateName
@@ -70,6 +70,8 @@ BEGIN
 			,@LastUpdatedBy
 			)
 	END
+	ELSE
+		SELECT 'Certification Already Exists' AS [Status]
 END
 GO
 

@@ -15,12 +15,12 @@ Create PROCEDURE [dbo].[AddSolutions] (
 	,@Answer VARCHAR(max)
 	,@AnsweredBy VARCHAR(10)
 	,@AnsweredOn DATETIME = NULL
-	,@LastUpdatedOn DATETIME = NULL
+	,@LastModifiedOn DATETIME = NULL
 	,@Votes INTEGER = NULL
 	)
 AS
 BEGIN
-	SET @LastUpdatedOn = GETDATE()
+	SET @LastModifiedOn = GETDATE()
 	SET @AnsweredOn = GETDATE()
 	SET @Votes = 0
 
@@ -29,7 +29,7 @@ BEGIN
 		,Answer
 		,AnsweredBy
 		,AnsweredOn
-		,LastUpdatedOn
+		,LastModifiedOn
 		,Votes
 		)
 	VALUES (
@@ -37,7 +37,7 @@ BEGIN
 		,@Answer
 		,@AnsweredBy
 		,@AnsweredOn
-		,@LastUpdatedOn
+		,@LastModifiedOn
 		,@Votes
 		)
 END

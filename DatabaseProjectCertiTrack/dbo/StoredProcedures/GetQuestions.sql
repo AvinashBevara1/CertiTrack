@@ -8,7 +8,8 @@
 CREATE PROCEDURE [dbo].[GetQuestions] (@CertificateID INT)
 AS
 BEGIN
-	SELECT Q.Question
+	SELECT Q.QuestionID
+		,Q.Question
 		,E.EmpName
 		,Q.CreatedOn
 		,Q.LastModifiedOn
