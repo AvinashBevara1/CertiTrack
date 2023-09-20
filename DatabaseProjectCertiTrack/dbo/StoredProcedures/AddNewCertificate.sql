@@ -51,8 +51,8 @@ BEGIN
 			,LEVEL
 			,CreatedOn
 			,CreatedBy
-			,LastUpdatedOn
-			,LastUpdatedBy
+			,LastModifiedOn
+			,LastModifiedBy
 			)
 		VALUES (
 			@CertificateName

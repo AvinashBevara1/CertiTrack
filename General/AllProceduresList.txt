@@ -8,8 +8,9 @@ GET Procs:
 4) GetAnswers(@QuestionID) 
 5) GetMyCertifications(@EmpID)
 5) GetReportersCertifications(@EmpID) -- Recursive CTE
-6) GetCertificationHistory(@CertificateID,@EmpID)
+6) GetCertificationHistory(@CertificateID,@EmpID) --Combining above two procs into one
 7) GetReportees(@EmpID) -- While Adding the certificate populate only reportees in the empoyee filed 
+8) GetCertificateDetails(@CertificateID) -- To get all the details about a certificate
 
 INSERT Procs:
 1) AddCertificate(@all Parameters from frontend) -- Check for duplicate data(Use CertificateIDFK and EMPID) -- This will also be called from MangerPage to Assign 
