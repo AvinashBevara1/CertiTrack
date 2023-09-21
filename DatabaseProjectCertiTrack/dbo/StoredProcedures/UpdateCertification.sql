@@ -8,7 +8,7 @@ CREATE PROCEDURE [dbo].[UpdateCertification] (
 	@CertificationId INT
 	,@Type VARCHAR(100)
 	,@Status VARCHAR(100) = NULL
-	,@DueDate DATETIME  = NULL
+	,@DueDate DATETIME = NULL
 	,@IssuedOn DATETIME = NULL
 	,@ExpiryDate DATETIME = NULL
 	,@Score FLOAT = NULL
@@ -21,8 +21,17 @@ BEGIN
 	DECLARE @Lead VARCHAR(10) = NULL
 	DECLARE @EmpID VARCHAR(10) = NULL
 
-	SET @Lead = (SELECT Lead from Employee E INNER JOIN Certifications C ON C.EmpID = E.EmpId where C.CertificationId =  @CertificationId)
-	SET @EmpID = (SELECT EmpID from Certifications C where C.CertificationId =  @CertificationId)
+	SET @Lead = (
+			SELECT Lead
+			FROM Employee E
+			INNER JOIN Certifications C ON C.EmpID = E.EmpId
+			WHERE C.CertificationId = @CertificationId
+			)
+	SET @EmpID = (
+			SELECT EmpID
+			FROM Certifications C
+			WHERE C.CertificationId = @CertificationId
+			)
 
 	INSERT INTO CertificationsHistory (
 		CertificationId
@@ -61,21 +70,17 @@ BEGIN
 		,LastModifiedOn
 		,LastModifiedBy
 	FROM Certifications
-	WHERE CertificationId = @CertificationId AND @UpdatedBy IN (@Lead,@EmpID)
-
-	
-	
+	WHERE CertificationId = @CertificationId AND @UpdatedBy IN (@Lead, @EmpID)
 
 	IF (UPPER(@Type) = 'REVOKE')
 	BEGIN
-		
 		UPDATE Certifications
 		SET RevokeFlag = 1
 			,Comments = @Comments
 			,LastModifiedBy = @UpdatedBy
 			,LastModifiedOn = GETDATE()
-            ,[STATUS] = 'Revoked'
- 		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
+			,[STATUS] = 'Revoked'
+		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
 	END
 
 	IF (UPPER(@Type) = 'APPROVE')
@@ -86,7 +91,7 @@ BEGIN
 			,Comments = @Comments
 			,LastModifiedBy = @UpdatedBy
 			,LastModifiedOn = GETDATE()
-            ,[STATUS] = 'Approved'
+			,[STATUS] = 'Approved'
 		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
 	END
 
@@ -94,8 +99,22 @@ BEGIN
 	BEGIN
 		DELETE
 		FROM Certifications
-		WHERE CertificationId = @CertificationId
-			AND ApprovedBy IS NULL 
+		WHERE CertificationId = @CertificationId AND ApprovedBy IS NULL
+	END
+
+	IF (upper(@Type) = 'UPDATE')
+	BEGIN
+		UPDATE Certifications
+		SET [STATUS] = @Status
+			,DueDate = @DueDate
+			,IssuedOn = @IssuedOn
+			,ExpiryDate = @ExpiryDate
+			,Score = @Score
+			,CertificateURL = @CertificateURL
+			,Comments = @Comments
+			,LastModifiedOn = GETDATE()
+			,LastModifiedBy = @UpdatedBy
+        where CertificationId=@CertificationId
 	END
 END
 GO

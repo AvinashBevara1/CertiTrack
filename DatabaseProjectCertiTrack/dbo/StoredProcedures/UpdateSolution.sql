@@ -5,9 +5,10 @@
 -- Description: Update Solution with type 
 -- LastModified: 
 -- =============================================
-CREATE PROCEDURE UpdateSolution (@Type VARCHAR(30), @AnswerId INTEGER, @QuestionID INT, @Answer VARCHAR(max) = NULL)
+CREATE PROCEDURE UpdateSolution (@Type VARCHAR(30), @AnswerId INTEGER, @QuestionID INT, @Answer VARCHAR(max))
 AS
 BEGIN
+
 	IF (upper(@Type) = 'VOTE')
 	BEGIN
 		UPDATE Solutions

@@ -5,7 +5,7 @@
 -- Description:	Proc to get the list of Reportees for the lead 
 -- LastModified
 -- =============================================
-CREATE PROCEDURE [dbo].[GetReportees] (@EmpID INT)
+Create PROCEDURE [dbo].[GetReportees] (@EmpID INT)
 AS
 BEGIN
 WITH EmployeeHierarchy AS (

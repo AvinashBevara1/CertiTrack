@@ -363,20 +363,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ravi.yalamanchili\\.nuget\\packages\\": {}
+    "C:\\Users\\avinash.bevara\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\Hackathon\\test-project\\DatabaseProjectCertiTrack\\DatabaseProjectCertiTrack.sqlproj",
+      "projectUniqueName": "e:\\Hackathon\\Hackathon\\test-project\\DatabaseProjectCertiTrack\\DatabaseProjectCertiTrack.sqlproj",
       "projectName": "DatabaseProjectCertiTrack",
-      "projectPath": "e:\\Hackathon\\test-project\\DatabaseProjectCertiTrack\\DatabaseProjectCertiTrack.sqlproj",
-      "packagesPath": "C:\\Users\\ravi.yalamanchili\\.nuget\\packages\\",
-      "outputPath": "e:\\Hackathon\\test-project\\DatabaseProjectCertiTrack\\obj\\",
+      "projectPath": "e:\\Hackathon\\Hackathon\\test-project\\DatabaseProjectCertiTrack\\DatabaseProjectCertiTrack.sqlproj",
+      "packagesPath": "C:\\Users\\avinash.bevara\\.nuget\\packages\\",
+      "outputPath": "e:\\Hackathon\\Hackathon\\test-project\\DatabaseProjectCertiTrack\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\ravi.yalamanchili\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\avinash.bevara\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net46"

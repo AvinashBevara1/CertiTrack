@@ -5,7 +5,7 @@
 -- Description:	Proc to get the details about a specific certificate
 -- LastModified
 -- =============================================
-CREATE PROCEDURE [dbo].[GetCertificateDetails] (@CertificateID INT)
+Create PROCEDURE [dbo].[GetCertificateDetails] (@CertificateID INT)
 AS
 BEGIN
 SELECT 
