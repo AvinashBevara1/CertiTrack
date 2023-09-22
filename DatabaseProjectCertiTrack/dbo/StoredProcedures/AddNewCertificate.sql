@@ -13,7 +13,7 @@
 -- =============================================
 
 
-Create PROCEDURE [dbo].[AddNewCertificate] (
+CREATE PROCEDURE [dbo].[AddNewCertificate] (
 	@CertificateName VARCHAR(200)
 	,@CertificateCode VARCHAR(50)
 	,@ApplyLink VARCHAR(MAX)
