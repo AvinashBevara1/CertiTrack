@@ -11,6 +11,7 @@ GET Procs:
 6) GetCertificationHistory(@CertificateID,@EmpID) --Combining above two procs into one
 7) GetReportees(@EmpID) -- While Adding the certificate populate only reportees in the empoyee filed 
 8) GetCertificateDetails(@CertificateID) -- To get all the details about a certicate
+9) 
 
 INSERT Procs:
 1) AddCertificate(@all Parameters from frontend) -- Check for duplicate data(Use CertificateIDFK and EMPID) -- This will also be called from MangerPage to Assign 
@@ -27,12 +28,16 @@ Update Procs:
 	-- If Type is vote increase Vote count
 
 
+Dynamic Emial
+	A) Email notifications for Revoke, Approval and completion
+	B) Email notifications for Expiry and duedate
 
+Reporting:
+	1) Cretae View to generate reportees
+	
+Stotred procedure to keep track of due and Expiry dates	
 
 
 
 Out of Scope:
 1) GetLearningPath -- This will come from Front End, where the doccument will be stored in Sharepoint
-2) Dynamic Emial
-	A) Email notifications for Revoke, Approval and completion
-	B) Email notifications for Expiry and duedate
