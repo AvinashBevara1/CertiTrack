@@ -32,11 +32,24 @@ Dynamic Emial
 	A) Email notifications for Revoke, Approval and completion
 	B) Email notifications for Expiry and duedate
 
+
+Features yet to be implemneted
+
 Reporting:
 	1) Cretae View to generate reportees
 	
-Stotred procedure to keep track of due and Expiry dates	
+Stotred procedure: To keep track of due and Expiry dates
+	
+Front End: Web interface and API calls
 
+
+Out of Scope:
+1) GetLearningPath -- This will come from Front End, where the doccument will be stored in Sharepoint
+
+Blockers:
+1) SQL Agent is accessible, we need this to automate the email process to trigger the mails if the certificate is due for completion or expiry.
+2) PowerBI licienece to generate reports for front end
+3) Need skilled resource for frontend
 
 
 Out of Scope:
