@@ -7,7 +7,7 @@
 -- =============================================
 
 
-CREATE Procedure GetMail(@Action varchar(50),@CertificationID int)
+CREATE Procedure [dbo].[GetMail](@Action varchar(50),@CertificationID int)
 as
 begin
 	declare @htmlstart varchar(max);
@@ -34,6 +34,9 @@ begin
           <tr>
             <td>
           <table style="margin: auto; min-width: 300px; max-width: 500px; border-spacing: 10px; border: 1px solid lightgray; background-color: white;">'
+
+
+
 	select @htmlend = '<tr>
                     <td style="padding: 10px 0px; text-align: center;" colspan="2">
                       <a href="{{domainUrl}}">View Details</a>
@@ -145,7 +148,7 @@ begin
 					</tr>
 					<tr>
 					  <td>
-						',L.EmpName,' Revoked the Certification.
+						',L.EmpName,' has revoked your Certification.
 					  </td>
 					</tr>
 					<tr>
