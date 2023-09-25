@@ -17,7 +17,7 @@ WITH EmployeeHierarchy AS (
     FROM Employee e
     INNER JOIN EmployeeHierarchy eh ON e.Lead = eh.EmpId
 )
-SELECT EmpId + ' - ' + EmpName AS ReporteeName
+SELECT EmpId,EmpId + ' - ' + EmpName AS ReporteeName
 FROM EmployeeHierarchy;
 
 END

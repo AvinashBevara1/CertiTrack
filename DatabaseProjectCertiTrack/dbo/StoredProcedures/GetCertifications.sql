@@ -9,7 +9,8 @@ CREATE PROCEDURE [dbo].[GetCertifications] (@EmpID INT,@Type VARCHAR(20))
 AS
 IF (UPPER(@Type) = 'SELF')
 BEGIN
-	SELECT CONCAT (CL.CertificateName,'-',COALESCE(CL.CertificateCode, 'Not Available')) AS CertificationName
+	SELECT CL.CertificateID
+		,CONCAT (CL.CertificateName,'-',COALESCE(CL.CertificateCode, 'Not Available')) AS CertificationName
 		,CL.[LEVEL]
 		,E.EmpId
 		,E.EmpName

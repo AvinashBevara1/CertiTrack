@@ -9,7 +9,8 @@ CREATE PROCEDURE [dbo].[GetCertificateDetails] (@CertificateID INT)
 AS
 BEGIN
 SELECT 
-    CONCAT (CL.CertificateName,'-',COALESCE(CL.CertificateCode, 'Not Available')) AS CertificationName
+     CL.CertificateID
+    ,CONCAT (CL.CertificateName,'-',COALESCE(CL.CertificateCode, 'Not Available')) AS CertificationName
     ,CL.[LEVEL]
     ,CL.Provider
     ,CL.Cost
