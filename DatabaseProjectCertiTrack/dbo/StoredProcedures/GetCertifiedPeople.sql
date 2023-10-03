@@ -14,6 +14,7 @@ BEGIN
 	FROM Certifications C
 	LEFT JOIN Employee E ON C.EmpID = E.EmpId
 	WHERE C.CertificateIdFk = @CertificateID
+			AND UPPER(C.STATUS) = 'COMPLETED'
 
 EXEC [dbo].[GetQuestions] @CertificateID
 
