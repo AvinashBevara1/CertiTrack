@@ -10,6 +10,7 @@ CREATE PROCEDURE [dbo].[AddQuestion] (
 	,@CertificateID INTEGER
 	,@EmpID VARCHAR(10)
 	,@CreatedOn DATETIME = NULL
+	,@maxid int output
 	)
 AS
 BEGIN
@@ -33,7 +34,12 @@ BEGIN
 			,@EmpID
 			,@CreatedOn
 			)
+
+	
+	select @maxid=max(QuestionID) from Questionnaire
+	SELECT @maxid AS maxid;
 	END
-END
+
+ END
 GO
 
