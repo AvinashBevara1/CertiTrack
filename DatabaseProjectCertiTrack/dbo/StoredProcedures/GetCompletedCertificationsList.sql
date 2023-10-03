@@ -8,21 +8,29 @@
 CREATE  PROCEDURE [dbo].[GetCompletedCertificationsList] 
 AS
 BEGIN
+	WITH CompletedCertificationsCTE
+AS (
 	SELECT DISTINCT CL.CertificateID
 		,CL.Provider
 		,CL.CertificateName
 		,CL.CertificateCode
-		-- ,COUNT(*) AS count
-        ,CASE WHEN C.STATUS = 'COMPLETED' THEN COUNT(*) ELSE 0 END AS Count
-	FROM Certifications C 
+		,COUNT(*) AS Count
+	FROM Certifications C
 	LEFT JOIN CertificateList CL ON C.CertificateIdFk = CL.CertificateID
-	-- WHERE C.STATUS = 'COMPLETED'
+	WHERE C.STATUS = 'COMPLETED'
 	GROUP BY CL.CertificateID
 		,CL.Provider
 		,CL.CertificateName
 		,CL.CertificateCode
-		,C.STATUS
-    ORDER BY CL.Provider,Count DESC
+	)
+SELECT CL.CertificateID
+	,CL.Provider
+	,CL.CertificateName
+	,CL.CertificateCode
+	,CASE WHEN CTE.COUNT IS NULL THEN 0 ELSE CTE.[Count] END Count
+FROM CertificateList CL
+LEFT JOIN CompletedCertificationsCTE CTE ON CL.CertificateID = CTE.CertificateID
+ORDER BY CL.Provider,CTE.Count DESC
 		
 END
 
