@@ -91,7 +91,7 @@ BEGIN
 			,Comments = @Comments
 			,LastModifiedBy = @UpdatedBy
 			,LastModifiedOn = GETDATE()
-			,[STATUS] = 'Approved'
+			,[STATUS] = 'Completed'
 		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
 	END
 
@@ -102,11 +102,10 @@ BEGIN
 		WHERE CertificationId = @CertificationId AND ApprovedBy IS NULL
 	END
 
-	IF (upper(@Type) = 'UPDATE')
+	IF (upper(@Type) = 'COMPLETE')
 	BEGIN
 		UPDATE Certifications
-		SET [STATUS] = @Status
-			,DueDate = @DueDate
+		SET [STATUS] = 'Approval Pending'
 			,IssuedOn = @IssuedOn
 			,ExpiryDate = @ExpiryDate
 			,Score = @Score

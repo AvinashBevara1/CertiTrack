@@ -10,7 +10,7 @@
 -- LastModified:
 
 -- =============================================
-Create PROCEDURE [dbo].[AddSolutions] (
+CREATE PROCEDURE [dbo].[AddSolutions] (
 	@QuestionID INTEGER
 	,@Answer VARCHAR(max)
 	,@AnsweredBy VARCHAR(10)

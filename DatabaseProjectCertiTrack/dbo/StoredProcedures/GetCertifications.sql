@@ -45,7 +45,8 @@ BEGIN
 		WHERE (v.Lead = c.EmpId)
 		)
 	-- select EmpId,EmpName  as name_in_bottom_heirarchy,LEAD from EmployeeHierarchy 
-	SELECT CONCAT (CL.CertificateName,'-',COALESCE(CL.CertificateCode, 'Not Available')) AS CertificationName
+	SELECT C.CertificationId
+		,CONCAT (CL.CertificateName,'-',COALESCE(CL.CertificateCode, 'Not Available')) AS CertificationName
 		,CL.[LEVEL]
 		,EH.EmpId
 		,EH.EmpName
@@ -53,7 +54,9 @@ BEGIN
 		,C.IssuedOn
 		,C.ExpiryDate
 		,CASE WHEN C.RevokeFlag = 0 THEN 'Active' ELSE 'Revoked' END AS RevokeStatus
+		,C.STATUS
         ,C.Comments
+		,C.ApprovedBy
 	FROM Certifications C
 	INNER JOIN CertificateList CL ON C.CertificateIdFk = CL.CertificateID
 	INNER JOIN EmployeeHierarchy EH ON EH.EmpID = C.EmpId
