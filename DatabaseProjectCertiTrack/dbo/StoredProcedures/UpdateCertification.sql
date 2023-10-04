@@ -1,9 +1,7 @@
--- =============================================
--- Author: Avinash Bevara
--- Create date: 09/13/2023
--- Description: Update Certification 
--- LastModified: 
--- =============================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE PROCEDURE [dbo].[UpdateCertification] (
 	@CertificationId INT
 	,@Type VARCHAR(100)
@@ -143,4 +141,3 @@ BEGIN
 	END
 END
 GO
-
