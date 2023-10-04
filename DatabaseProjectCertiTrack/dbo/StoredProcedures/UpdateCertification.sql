@@ -95,6 +95,32 @@ BEGIN
 		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
 	END
 
+    IF (UPPER(@Type) = 'REJECT')
+	BEGIN
+		UPDATE Certifications
+		SET ApprovedBy = @UpdatedBy
+			,ApprovedOn = GETDATE()
+			,Comments = @Comments
+			,LastModifiedBy = @UpdatedBy
+			,LastModifiedOn = GETDATE()
+			,[STATUS] = 'Rejected'
+		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
+	END
+
+    IF (UPPER(@Type) = 'ON-HOLD')
+	BEGIN
+		UPDATE Certifications
+		SET ApprovedBy = @UpdatedBy
+			,ApprovedOn = GETDATE()
+			,Comments = @Comments
+			,LastModifiedBy = @UpdatedBy
+			,LastModifiedOn = GETDATE()
+			,[STATUS] = 'On-Hold'
+		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
+	END
+
+
+
 	IF (UPPER(@Type) = 'DELETE')
 	BEGIN
 		DELETE
