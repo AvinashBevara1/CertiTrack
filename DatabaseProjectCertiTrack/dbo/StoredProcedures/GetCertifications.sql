@@ -1,11 +1,15 @@
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
 -- =============================================
 -- Author:	Ravi Varma Yalamanchili
 -- Create date:       09/18/2023
 -- Description:	Proc to get the list of Certifications list based on the @EmpID 
--- LastModified
+-- LastModified: 04/10/2023 (Karthik Mediboina)
 -- =============================================
-CREATE PROCEDURE [dbo].[GetCertifications] (@EmpID INT,@Type VARCHAR(20))
+ALTER PROCEDURE [dbo].[GetCertifications] (@EmpID INT,@Type VARCHAR(20))
 AS
 IF (UPPER(@Type) = 'SELF')
 BEGIN
@@ -63,4 +67,3 @@ BEGIN
 	INNER JOIN EmployeeHierarchy EH ON EH.EmpID = C.EmpId
 END
 GO
-
