@@ -1,9 +1,7 @@
--- =============================================
--- Author: Avinash Bevara
--- Create date: 09/13/2023
--- Description: Update Certification 
--- LastModified: 
--- =============================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE PROCEDURE [dbo].[UpdateCertification] (
 	@CertificationId INT
 	,@Type VARCHAR(100)
@@ -80,7 +78,7 @@ BEGIN
 			,LastModifiedBy = @UpdatedBy
 			,LastModifiedOn = GETDATE()
 			,[STATUS] = 'Revoked'
-		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
+		WHERE CertificationId = @CertificationId
 	END
 
 	IF (UPPER(@Type) = 'APPROVE')
@@ -92,7 +90,7 @@ BEGIN
 			,LastModifiedBy = @UpdatedBy
 			,LastModifiedOn = GETDATE()
 			,[STATUS] = 'Completed'
-		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
+		WHERE CertificationId = @CertificationId
 	END
 
     IF (UPPER(@Type) = 'REJECT')
@@ -104,7 +102,7 @@ BEGIN
 			,LastModifiedBy = @UpdatedBy
 			,LastModifiedOn = GETDATE()
 			,[STATUS] = 'Rejected'
-		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
+		WHERE CertificationId = @CertificationId
 	END
 
     IF (UPPER(@Type) = 'ON-HOLD')
@@ -116,7 +114,7 @@ BEGIN
 			,LastModifiedBy = @UpdatedBy
 			,LastModifiedOn = GETDATE()
 			,[STATUS] = 'On-Hold'
-		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
+		WHERE CertificationId = @CertificationId
 	END
 
 
@@ -143,4 +141,3 @@ BEGIN
 	END
 END
 GO
-
