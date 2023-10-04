@@ -80,7 +80,7 @@ BEGIN
 			,LastModifiedBy = @UpdatedBy
 			,LastModifiedOn = GETDATE()
 			,[STATUS] = 'Revoked'
-		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
+		WHERE CertificationId = @CertificationId
 	END
 
 	IF (UPPER(@Type) = 'APPROVE')
@@ -92,8 +92,34 @@ BEGIN
 			,LastModifiedBy = @UpdatedBy
 			,LastModifiedOn = GETDATE()
 			,[STATUS] = 'Completed'
-		WHERE CertificationId = @CertificationId AND @UpdatedBy = @Lead
+		WHERE CertificationId = @CertificationId
 	END
+
+    IF (UPPER(@Type) = 'REJECT')
+	BEGIN
+		UPDATE Certifications
+		SET ApprovedBy = @UpdatedBy
+			,ApprovedOn = GETDATE()
+			,Comments = @Comments
+			,LastModifiedBy = @UpdatedBy
+			,LastModifiedOn = GETDATE()
+			,[STATUS] = 'Rejected'
+		WHERE CertificationId = @CertificationId
+	END
+
+    IF (UPPER(@Type) = 'ON-HOLD')
+	BEGIN
+		UPDATE Certifications
+		SET ApprovedBy = @UpdatedBy
+			,ApprovedOn = GETDATE()
+			,Comments = @Comments
+			,LastModifiedBy = @UpdatedBy
+			,LastModifiedOn = GETDATE()
+			,[STATUS] = 'On-Hold'
+		WHERE CertificationId = @CertificationId
+	END
+
+
 
 	IF (UPPER(@Type) = 'DELETE')
 	BEGIN

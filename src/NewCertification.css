@@ -1,100 +1,79 @@
-/* CertificateForm.css */
+/* NewCertification.css */
 
-/* Container for the entire form */
-
-.certificate-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 80%;
-  height: max-content;
-  margin: 0 auto;
-  padding: 2%;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 2.5% rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
-
-/* Header */
-
-.certificate-div h1 {
-  font-size: 1.5rem;
-  text-align: center;
-  margin-bottom: 2%;
-}
-
-/* Form container */
-
-.certificate-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 80%;
-  height: auto;
-  margin: 2% auto;
-}
-
-/* Labels and Inputs */
-
-.certificate-form label {
-  font-weight: bold;
-}
-
-.firstrow {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
-  grid-gap: 20px;
-}
-
-.formdate {
-  width: 16vw;
-  display: flex;
-  flex-direction: column;
-
-  /* padding: 4%;
+.NC-certificate-div {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    height: max-content;
+  }
   
-    padding-top: 0%;
+  .NC-certificate-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
   
-    border-radius: 3px; */
-}
-
-.firstrow select {
-  display: flex;
-  width:300px;
-  height: 40px;
-}
-
-.certificate-form-textarea {
-  margin-top: 4%;
-}
-
-.certificate-form-textarea textarea {
-  /* margin-top: 4%; */
-  width: 620px;
-  height: 80px;
-  resize: none;
-}
-
-.react-datepicker__input-container input {
-  width: 100%;
-  height: 40px; /* Optionally, set a maximum width if needed */
-  padding: 0px;
-}
-
-.certificate-form button[type="submit"] {
-  width: 100px;
-  height: 25px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 2%;
-}
-
-.certificate-form button[type="submit"]:hover {
-  background-color: rgb(61, 44, 240);
-}
+  .NC-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .NC-grid-item {
+    grid-column: span 1;
+  }
+  
+  .NC-grid-item-empty {
+    grid-column: span 2;
+  }
+  
+  .NC-grid-item-comments {
+    grid-column: span 2;
+  }
+  
+  .NC-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .NC-select,
+  .NC-date-picker,
+  .NC-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .NC-textarea {
+    resize: none;
+    width: calc(100% - 20px);
+  }
+  
+  .NC-button {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .NC-button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  /* You can add more styles or customize existing ones as needed. */
+  

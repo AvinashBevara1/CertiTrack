@@ -1,11 +1,9 @@
-import React from 'react';
-import "./nav.css"
-import Dashboard from './Dashboard';
+import React from "react";
+import "./nav.css";
+import Certifications from "./certificationlist";
 
 function Home() {
-  return (
-            <Dashboard/>
-  );
+  return <Certifications />;
 }
 
 export default Home;

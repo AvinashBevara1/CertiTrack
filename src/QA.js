@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import './QA.css'
+import "./QA.css";
 
 function Qa() {
   const { certificateID } = useParams();
@@ -10,6 +10,7 @@ function Qa() {
   const [qaList, setQAList] = useState([]);
   const [newQuestion, setNewQuestion] = useState("");
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
+  const [answersUpdated, setAnswersUpdated] = useState(false);
 
   // Maintain separate states for answers
   const [answerInputs, setAnswerInputs] = useState([]);
@@ -26,7 +27,7 @@ function Qa() {
         .post("http://localhost:8000/add-question", {
           question: newQuestion,
           certificateID: certificateID,
-          empID: sessionStorage.getItem('empid'), // Replace with the actual employee ID
+          empID: sessionStorage.getItem("empid"), // Replace with the actual employee ID
         })
         .then((response) => {
           console.log(response.data);
@@ -53,14 +54,14 @@ function Qa() {
         .post("http://localhost:8000/add-answer", {
           questionID: questionID,
           answer: answer,
-          answeredby: sessionStorage.getItem('empid'), // Replace with the actual employee ID
+          answeredby: sessionStorage.getItem("empid"), // Replace with the actual employee ID
         })
         .then((response) => {
           console.log(response.data);
           const updatedQAList = [...qaList];
           updatedQAList[index].answers.push({
             answerText: answer,
-            answeredBy: sessionStorage.getItem('empid'), // Replace with the actual employee ID
+            answeredBy: sessionStorage.getItem("empid"), // Replace with the actual employee ID
             // createdDate: new Date().toISOString(), // Use the current date as created date
           });
           setQAList(updatedQAList);
@@ -69,8 +70,8 @@ function Qa() {
           const updatedAnswerInputs = [...answerInputs];
           updatedAnswerInputs[index] = "";
           setAnswerInputs(updatedAnswerInputs);
-
           setSelectedQuestionIndex(null);
+          setAnswersUpdated(!answersUpdated);
         })
         .catch((error) => {
           console.error("Error adding answer:", error);
@@ -101,7 +102,7 @@ function Qa() {
       .catch((error) => {
         console.error("Error retrieving QA data:", error);
       });
-  }, [certificateID,newQuestion]);
+  }, [certificateID, newQuestion, answersUpdated]);
 
   return (
     <div className="qa-container">
@@ -132,7 +133,10 @@ function Qa() {
             <div key={qaItem.QuestionID} className="qa-item">
               <div className="qa-question">
                 <span>Question:{qaItem.Question}</span>
+                <br />
                 <span className="created-date">
+                  Created by: {qaItem.EmpName}
+                  <br />
                   Created on: {qaItem.CreatedOn}
                 </span>
               </div>
@@ -146,9 +150,7 @@ function Qa() {
                     <span className="created-date">
                       Answered on: {answer.AnsweredOn}
                     </span>
-                    <span className="votes">
-                      Votes: {answer.Votes}
-                    </span>
+                    <span className="votes">Votes: {answer.Votes}</span>
                   </li>
                 ))}
               </ul>

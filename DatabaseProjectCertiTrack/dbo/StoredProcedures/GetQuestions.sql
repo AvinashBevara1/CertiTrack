@@ -16,6 +16,7 @@ BEGIN
 	FROM Questionnaire Q
 	INNER JOIN Employee E ON Q.CreatedBy = E.EmpId
 	WHERE Q.CertificateID = @CertificateID
+	ORDER BY LastModifiedOn desc
 END
 GO
 

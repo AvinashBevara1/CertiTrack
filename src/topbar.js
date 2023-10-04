@@ -1,15 +1,25 @@
 import React from 'react';
 import "./nav.css"
+import { useNavigate } from 'react-router-dom';
+import finallogo from './CertiTrackLogoBefore-removebg-preview.png'
 
 function TopBar() {
+
+  const navigate=useNavigate();
+
+  function handlelogout(){
+    sessionStorage.clear();
+    navigate("/login");
+  }
+
   return (
     <div className="topbar">
       <div className="profile">
-        <img src="CT-react-app\src\bmw.jpg" alt="Certi-Track"  width="50" height="60"/>
+      <img src={finallogo}  alt="Certi-Track"  height={50}/>
         {/* <span>Cert-Track</span> */}
       </div>
       <div className="logout">
-        <button>Logout</button>
+        <button onClick={handlelogout}>Logout</button>
       </div>
     </div>
   );

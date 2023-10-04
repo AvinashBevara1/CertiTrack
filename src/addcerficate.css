@@ -1,30 +1,21 @@
 .certificate-form {
   max-width: 400px;
-
   margin: 0 auto;
-
   padding: 20px;
-
   border: 1px solid #ccc;
-
   border-radius: 5px;
-
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
   background-color: #fff;
 }
 
 .certificate-form h1 {
   font-size: 24px;
-
   margin-bottom: 20px;
 }
 
 .certificate-form label {
   display: block;
-
   margin-bottom: 8px;
-
   font-weight: bold;
 }
 
@@ -34,13 +25,9 @@
 .certificate-form input[type="url"],
 .certificate-form textarea {
   width: 100%;
-
   padding: 8px;
-
   margin-bottom: 15px;
-
   border: 1px solid #ccc;
-
   border-radius: 3px;
 }
 
@@ -50,17 +37,11 @@
 
 .certificate-form button[type="submit"] {
   background-color: #007bff;
-
   color: #fff;
-
   border: none;
-
   border-radius: 3px;
-
   padding: 10px 20px;
-
   cursor: pointer;
-
   font-weight: bold;
 }
 

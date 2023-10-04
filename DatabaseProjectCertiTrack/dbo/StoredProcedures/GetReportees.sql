@@ -11,7 +11,7 @@ BEGIN
 WITH EmployeeHierarchy AS (
     SELECT EmpId, EmpName
     FROM Employee
-    WHERE Lead = @EmpID -- Replace 'NULL' with the manager's EmpId you're interested in
+    WHERE EmpID = @EmpID -- Replace 'NULL' with the manager's EmpId you're interested in
     UNION ALL
     SELECT e.EmpId, e.EmpName
     FROM Employee e

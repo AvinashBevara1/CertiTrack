@@ -25,7 +25,7 @@ function MyComponent() {
 
   return (
     <div className="my-component">
-      <h1>Login</h1>
+      <h1>Login to Certi-Track</h1>
       <div className="input-container">
         <label htmlFor="username">Username:</label>
         <input

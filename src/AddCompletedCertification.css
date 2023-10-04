@@ -1,0 +1,88 @@
+/* AddCompletedCertification.css */
+
+.ACC-certificate-div {
+  max-width: 600px;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: max-content;
+}
+
+.ACC-certificate-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.ACC-row {
+  grid-column: span 1;
+  margin-bottom: 10px;
+}
+
+.double-height {
+  grid-column: span 2;
+  margin-bottom: 10px;
+}
+
+.ACC-row label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+
+
+.textarea{
+  resize: none;
+}
+
+button[type="submit"] {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+
+.ACC-row select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.url{
+  grid-column: span 2;
+}
+
+.ACC-comments,.ACC-url,.ACC-score{
+  width: calc(100% - 10px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  
+}
+
+.ACC-comments{
+  resize: none;
+}
+
+.ACC-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -9,7 +9,8 @@ CREATE PROCEDURE [dbo].[GetCertifications] (@EmpID INT,@Type VARCHAR(20))
 AS
 IF (UPPER(@Type) = 'SELF')
 BEGIN
-	SELECT CL.CertificateID
+	SELECT 
+	C.CertificationId
 		,CONCAT (CL.CertificateName,'-',COALESCE(CL.CertificateCode, 'Not Available')) AS CertificationName
 		,CL.[LEVEL]
 		,E.EmpId
@@ -17,8 +18,11 @@ BEGIN
 		,C.Score
 		,C.IssuedOn
 		,C.ExpiryDate
+		,C.DueDate
 		,CASE WHEN C.RevokeFlag = 0 THEN 'Active' ELSE 'Revoked' END AS RevokeStatus
+		,C.STATUS
         ,C.Comments
+		,C.ApprovedBy
 	FROM Certifications C
 	INNER JOIN CertificateList CL ON C.CertificateIdFk = CL.CertificateID
 	INNER JOIN Employee E ON C.EmpID = E.EmpId
@@ -33,7 +37,7 @@ BEGIN
 			,e.EmpName
 			,e.Lead
 		FROM Employee e
-		WHERE EmpId = @EmpID
+		WHERE Lead = @EmpID
 		
 		UNION ALL
 		
@@ -53,10 +57,12 @@ BEGIN
 		,C.Score
 		,C.IssuedOn
 		,C.ExpiryDate
+		,C.DueDate
 		,CASE WHEN C.RevokeFlag = 0 THEN 'Active' ELSE 'Revoked' END AS RevokeStatus
 		,C.STATUS
         ,C.Comments
 		,C.ApprovedBy
+		,C.CertificateURL
 	FROM Certifications C
 	INNER JOIN CertificateList CL ON C.CertificateIdFk = CL.CertificateID
 	INNER JOIN EmployeeHierarchy EH ON EH.EmpID = C.EmpId

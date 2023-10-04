@@ -18,6 +18,7 @@ BEGIN
 	FROM Solutions S
 	INNER JOIN Employee E ON S.AnsweredBy = E.EmpId
 	WHERE S.QuestionID = @QuestionID
+	ORDER BY LastModifiedOn desc
 END
 GO
 

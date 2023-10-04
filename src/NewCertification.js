@@ -5,7 +5,7 @@ import "./NewCertification.css";
 import { format } from "date-fns";
 import axios from "axios";
 
-function CertificateForm(){
+function NewCertification() {
   const [selectedCertificate, setSelectedCertificate] = useState("");
   const [employeeName, setEmployeeName] = useState("");
   const [status, setStatus] = useState("In Progress");
@@ -16,7 +16,7 @@ function CertificateForm(){
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/certifications") // Update the URL as needed
+      .get("http://localhost:8000/certifications")
       .then((response) => {
         const certificateOptions = response.data.certifications.map((cert) => ({
           value: cert.certificateid,
@@ -28,11 +28,11 @@ function CertificateForm(){
         console.error("Error fetching certification data:", error);
       });
 
-      const empid=String( sessionStorage.getItem('empid'))
-      axios
-      .get(`http://localhost:8000/get-reportees/${empid}`) // Update the URL as needed
+    const empid = String(sessionStorage.getItem("empid"));
+    axios
+      .get(`http://localhost:8000/get-reportees/${empid}`)
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         const ReporteeOptions = response.data.map((repo) => ({
           value: repo.EmpId,
           label: repo.EmpName,
@@ -44,42 +44,36 @@ function CertificateForm(){
       });
   }, []);
 
-  // const employeeOptions = [
-  //   { value: "emp1", label: "Employee 1" },
-  //   { value: "emp2", label: "Employee 2" },
-  //   { value: "emp3", label: "Employee 3" },
-  // ];
   const formRef = useRef();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formattedDueDate = dueDate ? format(dueDate, "yyyy-MM-dd") : null;
-    console.log({employeeName}.employeeName)
     const formData = {
-      CertificateID: selectedCertificate, // Change to match your API field names
-      EmpID: {employeeName}.employeeName,// Change to match your API field names
-      AssignedBy: sessionStorage.getItem('empid'),
-      CreatedBy:sessionStorage.getItem('empid'), // Change to match your API field names // Change to match your API field names
-      Comments:comments,
-      Status:"In-Progress",
+      CertificateID: selectedCertificate,
+      EmpID: employeeName,
+      AssignedBy: sessionStorage.getItem("empid"),
+      CreatedBy: sessionStorage.getItem("empid"),
+      Comments: comments,
+      Status: "In-Progress",
       DueDate: formattedDueDate,
-      ExpiryDate:null,
-      IssuedOn:null,
-      CertificateURL:null,
-      Score:null, // Change to match your API field names
+      ExpiryDate: null,
+      IssuedOn: null,
+      CertificateURL: null,
+      Score: null,
     };
-  
+
     try {
-      // Make a POST request to your API endpoint
-      const response = await axios.post("http://localhost:8000/submit-certificate", formData);
-  
-      // Handle the response as needed
+      const response = await axios.post(
+        "http://localhost:8000/submit-certificate",
+        formData
+      );
+
       console.log("Certificate submitted successfully:", response.data);
-  
-      // Reset form fields or perform other actions upon successful submission
+
       setSelectedCertificate("");
       setEmployeeName("");
-      setStatus("InProgress");
+      setStatus("In-Progress");
       setDueDate(null);
       setComments("");
     } catch (error) {
@@ -89,14 +83,15 @@ function CertificateForm(){
   };
 
   return (
-    <div className="certificate-div">
+    <div className="NC-certificate-div">
       <h1>Certificate Entry Form</h1>
 
-      <form className="certificate-form" onSubmit={onSubmit} ref={formRef}>
-        <div className="firstrow">
-          <div>
+      <form className="NC-form" onSubmit={onSubmit} ref={formRef}>
+        <div className="NC-certificate-form">
+          <div className="NC-grid-item">
             <label>Certificate List:</label>
             <select
+              className="NC-select"
               value={selectedCertificate}
               onChange={(e) => setSelectedCertificate(e.target.value)}
               required
@@ -111,9 +106,10 @@ function CertificateForm(){
               ))}
             </select>
           </div>
-          <div>
+          <div className="NC-grid-item">
             <label>Employee Name:</label>
             <select
+              className="NC-select"
               value={employeeName}
               onChange={(e) => setEmployeeName(e.target.value)}
               required
@@ -128,26 +124,31 @@ function CertificateForm(){
               ))}
             </select>
           </div>
-          <div className="formdate">
+          <div className="NC-grid-item">
             <label>Due Date:</label>
             <DatePicker
+              className="NC-date-picker"
               selected={dueDate}
               onChange={(date) => setDueDate(date)}
               dateFormat="yyyy-MM-dd"
             />
           </div>
+          <div className="NC-grid-item-empty"></div>
+          <div className="NC-grid-item-comments" colSpan="2">
+            <label className="NC-label">Comments:</label>
+            <textarea
+              className="NC-textarea"
+              value={comments}
+              onChange={(e) => setComments(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="certificate-form-textarea">
-          <label>Comments:</label>
-          <textarea
-            value={comments}
-            onChange={(e) => setComments(e.target.value)}
-          />
-        </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="NC-button">
+          Submit
+        </button>
       </form>
     </div>
   );
-};
+}
 
-export default CertificateForm;
+export default NewCertification;

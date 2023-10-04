@@ -15,7 +15,7 @@ CREATE PROCEDURE [dbo].[AddCertification] (
 	,@ExpiryDate DATE = NULL
 	,@Score FLOAT = NULL
 	,@CertificateURL VARCHAR(max) = NULL
-	,@RevokeFlag BIT = NULL
+	,@RevokeFlag BIT = 0
 	,@Comments VARCHAR(100)
 	,@CreatedOn DATE = NULL
 	,@CreatedBy VARCHAR(10)
@@ -34,7 +34,7 @@ BEGIN
 	BEGIN
 		SET @CreatedOn = GETDATE()
 		SET @LastModifiedOn = GETDATE()
-		SET @STATUS = CASE WHEN @STATUS IS NULL OR @STATUS = '' THEN 'IN-PROGRESS' ELSE UPPER(@STATUS) END
+		SET @STATUS = CASE WHEN @STATUS IS NULL OR @STATUS = '' THEN 'In-Progress' ELSE @STATUS END
 
 		INSERT INTO [dbo].[Certifications] (
 			CertificateIdFk

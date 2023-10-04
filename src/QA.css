@@ -5,7 +5,7 @@
     justify-content: space-between;
     padding: 20px;
     overflow: scroll;
-    width: 100%;
+    /* width: 100%; */
   }
   
   .certifiedpeople {
@@ -55,7 +55,7 @@
   }
   
   .qa-list .qa-question {
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
   }
   
@@ -85,7 +85,7 @@
   }
   
   .qa-answer-input input {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
