@@ -9,7 +9,7 @@ function Qa() {
   const [certifiedpeople, setCertifiedPeople] = useState([]);
   const [qaList, setQAList] = useState([]);
   const [newQuestion, setNewQuestion] = useState("");
-  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
+  // const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
   const [answersUpdated, setAnswersUpdated] = useState(false);
 
   // Maintain separate states for answers
@@ -70,7 +70,7 @@ function Qa() {
           const updatedAnswerInputs = [...answerInputs];
           updatedAnswerInputs[index] = "";
           setAnswerInputs(updatedAnswerInputs);
-          setSelectedQuestionIndex(null);
+          // setSelectedQuestionIndex(null);
           setAnswersUpdated(!answersUpdated);
         })
         .catch((error) => {
@@ -167,7 +167,7 @@ function Qa() {
                 />
                 <button
                   onClick={() => {
-                    setSelectedQuestionIndex(index);
+                    // setSelectedQuestionIndex(index);
                     handleAddAnswer(index);
                   }}
                 >

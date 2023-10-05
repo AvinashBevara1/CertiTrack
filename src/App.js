@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Certifications from "./certificationlist";
 import Login from "./LoginPage";
 import Qa from "./QA";
-import Home from "./certitrackapp";
 import SideBar from "./sidebar";
 import TopBar from "./topbar";
 import NewCertification from "./NewCertification";
@@ -29,8 +28,8 @@ function App() {
                   {/* Nested routes for main content */}
                   <Routes>
                     {/* Nested route for the root path */}
-                    <Route index element={<Home />} />
-                    <Route path="/" element={<Home/>}/>
+                    <Route index element={<Certifications />} />
+                    <Route path="/" element={<Certifications/>}/>
                     <Route path="/new-certification" element={<NewCertification />} />
                     <Route path="/add-existing-certification" element={<AddCertificate/>}/>
                     <Route path="/my-certification" element={<Mycertification/>}/>

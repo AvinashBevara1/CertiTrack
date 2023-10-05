@@ -8,6 +8,9 @@
     overflow: scroll;
   }
   
+  .container::-webkit-scrollbar {
+    display: none;
+  }
   /* Styles for status buttons */
   .status-button {
     background-color: #007bff;

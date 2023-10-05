@@ -28,6 +28,8 @@ try:
     # Example: Execute a SQL query
     certficationsList=cursor.execute("exec GetCompletedCertificationsList").fetchall()
 
+    LeadList=cursor.execute("select distinct lead from employee").fetchall()
+
    
 except pyodbc.Error as e:
     print(f"Error: {e}")
@@ -48,6 +50,18 @@ async def index():
    result = [{"certificateid": row.CertificateID, "certificatename": row.CertificateName,"count":row.Count,"provider":row.Provider} for row in certficationsList]
    return {"certifications":result}
    # return {"message":"hello world"}
+
+@app.get("/lead")
+async def index():
+   leadids=[]
+   print (LeadList)
+   for i in LeadList:
+       leadids.append(str(i[0]))
+   return {"lead":leadids}
+   # return {"message":"hello world"}
+
+
+
 
 @app.post("/getcertifiedpeople")
 async def index(input_param:certificaterequest):

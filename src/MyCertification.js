@@ -32,10 +32,7 @@ const MyCertification = () => {
     // Filter certifications based on the selected status
     if (selectedStatus === "") {
       setShowCertifications(false); // Hide certifications initially
-    } else if (selectedStatus === "All") {
-      setFilteredCertifications(certificationsData);
-      setShowCertifications(true); // Show certifications when a filter is applied
-    } else if (selectedStatus === "Certification Pending for Approval") {
+    }  else if (selectedStatus === "Certification Pending for Approval") {
       const filtered = certificationsData.filter(
         (certification) =>
           certification.Status === "Approval Pending" &&
@@ -147,9 +144,6 @@ const MyCertification = () => {
     console.log("Edit button clicked for certification:", certification);
   };
 
-  
-
-
   // Function to close the edit modal
   const closeEditModal = () => {
     setEditModalOpen(false);
@@ -160,18 +154,21 @@ const MyCertification = () => {
   const saveEditedData = (editedData) => {
     // Implement the logic to save the edited data to the server
     // You can make an API call here to update the certification data
-    const formData={
+    const formData = {
       CertificationId: editedData.CertificationID, // Fill in the appropriate values
       Type: "Complete", // Fill in the appropriate values
       Comments: editedData.Comments, // Fill in the appropriate values
-      UpdatedBy: sessionStorage.getItem('empid'), // Fill in the appropriate values
+      UpdatedBy: sessionStorage.getItem("empid"), // Fill in the appropriate values
       IssuedOn: editedData.IssuedOn, // Fill in the appropriate values
       ExpiryDate: editedData.ExpiryDate, // Fill in the appropriate values
       CertificateUrl: editedData.CertificateURL, // Fill in the appropriate values
-      Score: editedData.Score// Fill in the appropriate values
-    }
+      Score: editedData.Score, // Fill in the appropriate values
+    };
     try {
-      const response =axios.post("http://localhost:8000/complete-certification/", formData);
+      const response = axios.post(
+        "http://localhost:8000/complete-certification/",
+        formData
+      );
       console.log("Request succeeded:", response.data);
       // Handle success, e.g., display a success message or update your UI
     } catch (error) {
@@ -186,6 +183,12 @@ const MyCertification = () => {
       <div>
         <button
           className="status-button"
+          onClick={() => setSelectedStatus("Approval Pending")}
+        >
+          Approval Pending 
+        </button>
+        <button
+          className="status-button"
           onClick={() => setSelectedStatus("In-Progress")}
         >
           In-Progress Certifications
@@ -195,12 +198,6 @@ const MyCertification = () => {
           onClick={() => setSelectedStatus("Completed")}
         >
           Completed Certifications
-        </button>
-        <button
-          className="status-button"
-          onClick={() => setSelectedStatus("Approval Pending")}
-        >
-          Approval Pending Certifications
         </button>
         <button
           className="status-button"

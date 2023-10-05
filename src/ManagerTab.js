@@ -35,7 +35,7 @@ const RequestApprovalTab = () => {
     } else if (selectedStatus === 'All') {
       setFilteredCertifications(certificationsData);
       setShowCertifications(true); // Show certifications when a filter is applied
-    } else if (selectedStatus === 'Certification Pending for Approval') {
+    } else if (selectedStatus === 'Approval Pending') {
       const filtered = certificationsData.filter(
         (certification) =>
           certification.Status === 'Approval Pending' && certification.RevokeStatus !== 'Revoked'
@@ -403,7 +403,7 @@ const RequestApprovalTab = () => {
                 <td>{certification.Status}</td>
                 <td style={{ whiteSpace: 'nowrap' }}>{certification.RevokeStatus}</td>
                 <td>
-                  {status === 'Certification Pending for Approval' || status === 'In-Progress' ? (
+                  {status === 'Approval Pending' || status === 'In-Progress' ? (
                     <input
                       type="text"
                       placeholder="Comment..."
@@ -418,7 +418,7 @@ const RequestApprovalTab = () => {
                   )}
                 </td>
                 <td>
-                  {status === 'Certification Pending for Approval' && (
+                  {status === 'Approval Pending' && (
                     <div>
                       {showCommentInput[certification.CertificationID] ? (
                         <div>
@@ -517,15 +517,15 @@ const RequestApprovalTab = () => {
       <div>
         <button
           className="status-button"
-          onClick={() => setSelectedStatus('Certification Pending for Approval')}
+          onClick={() => setSelectedStatus('Approval Pending')}
         >
-          Certification Pending for Approval
-        </button>
-        <button className="status-button" onClick={() => setSelectedStatus('Completed')}>
-          Completed Certifications
+          Approval Pending
         </button>
         <button className="status-button" onClick={() => setSelectedStatus('In-Progress')}>
           In-Progress Certifications
+        </button>
+        <button className="status-button" onClick={() => setSelectedStatus('Completed')}>
+          Completed Certifications
         </button>
         <button className="status-button" onClick={() => setSelectedStatus('Others')}>
           Other Categories
