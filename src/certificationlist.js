@@ -32,9 +32,9 @@ function Certifications() {
   return (
     <div className="certifications">
       <h2>Certifications</h2>
-      <div>
+      <div className="all-cards">
         {certifications.map((certification) => (
-          <div
+          <div className="certificate-card"
             onClick={() => handleClick(certification.certificateid)}
             key={certification.certificateid}
             style={{
@@ -45,13 +45,16 @@ function Certifications() {
               borderStyle: "solid",
             }}
           >
-            <strong>ID: {certification.certificateid}</strong>{" "}
-            {certification.provider} - {certification.certificatename} -{" "}
+           <strong> Provider: </strong>{certification.provider}
+            <br></br>
+            <strong>{" Certificate Name :"}</strong> {certification.certificatename}
+            <br></br> 
+            <strong>{"Certified people: "} </strong>
             {certification.count}
           </div>
         ))}
       </div>
-    </div>
+      </div>
   );
 }
 
