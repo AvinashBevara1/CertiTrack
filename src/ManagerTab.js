@@ -303,7 +303,7 @@ const RequestApprovalTab = () => {
 
     // Create an object with the parameters for the stored procedure
     const params = {
-      CertificationID: CertificationID, // Replace with the actual CertificationID
+      CertificationId: CertificationID, // Replace with the actual CertificationID
       Type: 'Resume',
       Status: 'In-Progress',
       Comments: commentTexts[CertificationID],
@@ -377,13 +377,13 @@ const RequestApprovalTab = () => {
         <table>
           <thead>
             <tr>
-              <th>Certification Id</th>
+              {/* <th>Certification Id</th> */}
               <th>Certification Name</th>
-              <th>Employee Id</th>
+              <th>EmpId</th>
               <th>Level</th>
               <th>CertificateURL</th>
               <th>Status</th>
-              <th>Revoke Status</th>
+              <th>Revoke-Status</th>
               <th>Comments</th>
               <th>Action</th>
             </tr>
@@ -391,7 +391,7 @@ const RequestApprovalTab = () => {
           <tbody>
             {certifications.map((certification, index) => (
               <tr key={index}>
-                <td>{certification.CertificationID}</td>
+                {/* <td>{certification.CertificationID}</td> */}
                 <td>{certification.CertificationName}</td>
                 <td>{certification.EmpId}</td>
                 <td>{certification.Level}</td>

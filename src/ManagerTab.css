@@ -29,6 +29,9 @@
   /* Styles for the table */
   .table-container {
     overflow-x: auto;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+
   }
   
   table {
@@ -78,4 +81,5 @@
   .button:hover {
     background-color: #0056b3;
   }
-  
+  /* tr:nth-child(odd) {background-color:rgb(173, 244, 254);} */
+  tr:nth-child(odd) {background-color:white;}

@@ -27,7 +27,7 @@ function MyComponent() {
     <div className="my-component">
       <h1>Login to Certi-Track</h1>
       <div className="input-container">
-        <label htmlFor="username">Username:</label>
+        <label className='login-username' htmlFor="username">Username:</label>
         <input
           type="text"
           id="username"
@@ -37,7 +37,7 @@ function MyComponent() {
         />
       </div>
       <div className="input-container">
-        <label htmlFor="password">Password:</label>
+        <label className='login-password' htmlFor="password">Password:</label>
         <input
           type="password"
           id="password"

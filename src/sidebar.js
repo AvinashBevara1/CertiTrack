@@ -13,8 +13,8 @@ function SideBar() {
   // Define an array of routes and their corresponding text labels
   const routes = [
     { path: "/", label: "Home" },
-    { path: "/new-certification", label: "New Certification" },
-    { path: "/add-existing-certification", label: "Add existing Certification" },
+    { path: "/new-certification", label: "Start Certification" },
+    { path: "/add-existing-certification", label: "Add Certification" },
     { path: "/my-certification", label: "My Certifications" },
   ];
 
@@ -37,7 +37,7 @@ function SideBar() {
 
   // If the user is a manager, add the "Manager tab" to the routes
   if (isManager) {
-    routes.push({ path: "/manager-tab", label: "Manager tab" });
+    routes.push({ path: "/manager-tab", label: "My Team" });
   }
 
   const handleTabClick = (path) => {
