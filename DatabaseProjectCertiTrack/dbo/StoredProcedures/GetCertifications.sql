@@ -23,6 +23,7 @@ BEGIN
 		,C.STATUS
         ,C.Comments
 		,C.ApprovedBy
+		,C.CertificateURL
 	FROM Certifications C
 	INNER JOIN CertificateList CL ON C.CertificateIdFk = CL.CertificateID
 	INNER JOIN Employee E ON C.EmpID = E.EmpId
@@ -67,5 +68,8 @@ BEGIN
 	INNER JOIN CertificateList CL ON C.CertificateIdFk = CL.CertificateID
 	INNER JOIN EmployeeHierarchy EH ON EH.EmpID = C.EmpId
 END
+
+
+exec GetCertifications '208','MANAGER'
 GO
 

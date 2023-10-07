@@ -27,6 +27,7 @@ CREATE PROCEDURE [dbo].[AddNewCertificate] (
 	,@CreatedBy VARCHAR(10)
 	,@LastUpdatedOn DATETIME = NULL
 	,@LastUpdatedBy VARCHAR(10)
+	,@SubmitResponse VARCHAR(50) OUTPUT
 	)
 AS
 BEGIN
@@ -69,9 +70,13 @@ BEGIN
 			,@LastUpdatedOn
 			,@LastUpdatedBy
 			)
+		SELECT @SubmitResponse='Certification Submitted Succesfully'
 	END
 	ELSE
-		SELECT 'Certification Already Exists' AS [Status]
+		BEGIN
+			SELECT @SubmitResponse='Certification Already Exists'
+		END
+	SELECT @SubmitResponse AS SubmitResponse
 END
 GO
 
