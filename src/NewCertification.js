@@ -70,6 +70,7 @@ function NewCertification() {
       );
 
       console.log("Certificate submitted successfully:", response.data);
+      alert(response.data.SubmitResponse);
 
       setSelectedCertificate("");
       setEmployeeName("");

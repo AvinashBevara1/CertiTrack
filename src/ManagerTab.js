@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ManagerTab.css'; // Import the CSS file
+import { format } from 'date-fns';
 
 const RequestApprovalTab = () => {
   const [certificationsData, setCertificationsData] = useState([]);
@@ -22,6 +23,7 @@ const RequestApprovalTab = () => {
       .then((response) => {
         // Assuming the API response is an array of certifications data
         setCertificationsData(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -83,30 +85,30 @@ const RequestApprovalTab = () => {
     }));
   };
 
-  const approveCertification = (CertificationID) => {
-    // Validate comment before approval
+  const UpdateCertification = (CertificationID, Type, Status) => {
+    // Validate comment before proceeding
     if (!commentTexts[CertificationID].trim()) {
       setCommentError((prevCommentErrors) => ({
         ...prevCommentErrors,
-        [CertificationID]: 'Comment is required before approval.',
+        [CertificationID]: 'Comment is required before proceeding.',
       }));
       return;
     }
 
     // Create an object with the parameters for the stored procedure
     const params = {
-      CertificationId: CertificationID, // Replace with the actual CertificationID
-      Type: 'Approve',
-      Status: 'Completed',
+      CertificationId: CertificationID,
+      Type,
+      Status,
       Comments: commentTexts[CertificationID],
-      UpdatedBy: sessionStorage.getItem('empid'), // Replace with the actual UpdatedBy value
+      UpdatedBy: sessionStorage.getItem('empid'),
     };
 
     // Make a POST request to call the stored procedure using Axios
     axios
-      .post('http://localhost:8000/update-certification', params) // Replace with the actual API endpoint
+      .post('http://localhost:8000/update-certification', params)
       .then((response) => {
-        console.log('Certification approved successfully:', response.data);
+        console.log(`Certification ${Type.toLowerCase()}ed successfully:`, response.data);
 
         // Set the final comment text and clear the temporary comment
         setCommentTexts((prevCommentTexts) => ({
@@ -119,227 +121,19 @@ const RequestApprovalTab = () => {
           if (certification.CertificationID === CertificationID) {
             return {
               ...certification,
-              Status: 'Completed',
+              Status,
             };
           }
           return certification;
         });
 
         setCertificationsData(updatedCertificationsData);
-
-        // Update filteredCertifications to include the approved certification
+        console.log(certificationsData)
+        // Update filteredCertifications to include the certification with the new status
         setFilteredCertifications(updatedCertificationsData);
       })
       .catch((error) => {
-        console.error('Error approving certification:', error);
-      });
-  };
-
-  const rejectCertification = (CertificationID) => {
-    // Validate comment before rejection
-    if (!commentTexts[CertificationID].trim()) {
-      setCommentError((prevCommentErrors) => ({
-        ...prevCommentErrors,
-        [CertificationID]: 'Comment is required before rejection.',
-      }));
-      return;
-    }
-
-    // Create an object with the parameters for the stored procedure
-    const params = {
-      CertificationId: CertificationID, // Replace with the actual CertificationID
-      Type: 'Reject',
-      Status: 'Rejected',
-      Comments: commentTexts[CertificationID],
-      UpdatedBy: sessionStorage.getItem('empid'), // Replace with the actual UpdatedBy value
-    };
-
-    // Make a POST request to call the stored procedure using Axios
-    axios
-      .post('http://localhost:8000/update-certification', params) // Replace with the actual API endpoint
-      .then((response) => {
-        console.log('Certification rejected successfully:', response.data);
-
-        // Set the final comment text and clear the temporary comment
-        setCommentTexts((prevCommentTexts) => ({
-          ...prevCommentTexts,
-          [CertificationID]: '',
-        }));
-
-        // Update certificationsData to reflect the status change
-        const updatedCertificationsData = certificationsData.map((certification) => {
-          if (certification.CertificationID === CertificationID) {
-            return {
-              ...certification,
-              Status: 'Rejected',
-            };
-          }
-          return certification;
-        });
-
-        setCertificationsData(updatedCertificationsData);
-
-        // Update filteredCertifications to include the rejected certification
-        setFilteredCertifications(updatedCertificationsData);
-      })
-      .catch((error) => {
-        console.error('Error rejecting certification:', error);
-      });
-  };
-
-  const onHoldCertification = (CertificationID) => {
-    // Validate comment before putting a certification on hold
-    if (!commentTexts[CertificationID].trim()) {
-      setCommentError((prevCommentErrors) => ({
-        ...prevCommentErrors,
-        [CertificationID]: 'Comment is required before putting on hold.',
-      }));
-      return;
-    }
-
-    // Create an object with the parameters for the stored procedure
-    const params = {
-      CertificationId: CertificationID, // Replace with the actual CertificationID
-      Type: 'On-Hold',
-      Status: 'On-Hold',
-      Comments: commentTexts[CertificationID],
-      UpdatedBy: sessionStorage.getItem('empid'), // Replace with the actual UpdatedBy value
-    };
-
-    // Make a POST request to call the stored procedure using Axios
-    axios
-      .post('http://localhost:8000/update-certification', params) // Replace with the actual API endpoint
-      .then((response) => {
-        console.log('Certification put on hold:', response.data);
-
-        // Set the final comment text and clear the temporary comment
-        setCommentTexts((prevCommentTexts) => ({
-          ...prevCommentTexts,
-          [CertificationID]: '',
-        }));
-
-        // Update certificationsData to reflect the status change
-        const updatedCertificationsData = certificationsData.map((certification) => {
-          if (certification.CertificationID === CertificationID) {
-            return {
-              ...certification,
-              Status: 'On-Hold',
-            };
-          }
-          return certification;
-        });
-
-        setCertificationsData(updatedCertificationsData);
-
-        // Update filteredCertifications to include the certification on hold
-        setFilteredCertifications(updatedCertificationsData);
-      })
-      .catch((error) => {
-        console.error('Error putting certification on hold:', error);
-      });
-  };
-
-  const revokeCertification = (CertificationID) => {
-    // Validate comment before revoking a certification
-    if (!commentTexts[CertificationID].trim()) {
-      setCommentError((prevCommentErrors) => ({
-        ...prevCommentErrors,
-        [CertificationID]: 'Comment is required before revoking.',
-      }));
-      return;
-    }
-
-    // Create an object with the parameters for the stored procedure
-    const params = {
-      CertificationId: CertificationID, // Replace with the actual CertificationID
-      Type: 'Revoke',
-      Status: 'Revoked',
-      Comments: commentTexts[CertificationID],
-      UpdatedBy: sessionStorage.getItem('empid'), // Replace with the actual UpdatedBy value
-    };
-
-    // Make a POST request to call the stored procedure using Axios
-    axios
-      .post('http://localhost:8000/update-certification', params) // Replace with the actual API endpoint
-      .then((response) => {
-        console.log('Certification revoked:', response.data);
-
-        // Set the final comment text and clear the temporary comment
-        setCommentTexts((prevCommentTexts) => ({
-          ...prevCommentTexts,
-          [CertificationID]: '',
-        }));
-
-        // Update certificationsData to reflect the status change
-        const updatedCertificationsData = certificationsData.map((certification) => {
-          if (certification.CertificationID === CertificationID) {
-            return {
-              ...certification,
-              Status: 'Revoked',
-            };
-          }
-          return certification;
-        });
-
-        setCertificationsData(updatedCertificationsData);
-
-        // Update filteredCertifications to include the revoked certification
-        setFilteredCertifications(updatedCertificationsData);
-      })
-      .catch((error) => {
-        console.error('Error revoking certification:', error);
-      });
-  };
-
-  const ResumeCertification = (CertificationID) => {
-    // Implement your logic to resume a certification here
-    if (!commentTexts[CertificationID].trim()) {
-      setCommentError((prevCommentErrors) => ({
-        ...prevCommentErrors,
-        [CertificationID]: 'Comment is required before resuming.',
-      }));
-      return;
-    }
-
-    // Create an object with the parameters for the stored procedure
-    const params = {
-      CertificationId: CertificationID, // Replace with the actual CertificationID
-      Type: 'Resume',
-      Status: 'In-Progress',
-      Comments: commentTexts[CertificationID],
-      UpdatedBy: sessionStorage.getItem('empid'), // Replace with the actual UpdatedBy value
-    };
-
-    // Make a POST request to call the stored procedure using Axios
-    axios
-      .post('http://localhost:8000/update-certification', params) // Replace with the actual API endpoint
-      .then((response) => {
-        console.log('Certification resumed:', response.data);
-
-        // Set the final comment text and clear the temporary comment
-        setCommentTexts((prevCommentTexts) => ({
-          ...prevCommentTexts,
-          [CertificationID]: '',
-        }));
-
-        // Update certificationsData to reflect the status change
-        const updatedCertificationsData = certificationsData.map((certification) => {
-          if (certification.CertificationID === CertificationID) {
-            return {
-              ...certification,
-              Status: 'In-Progress',
-            };
-          }
-          return certification;
-        });
-
-        setCertificationsData(updatedCertificationsData);
-
-        // Update filteredCertifications to include the resumed certification
-        setFilteredCertifications(updatedCertificationsData);
-      })
-      .catch((error) => {
-        console.error('Error resuming certification:', error);
+        console.error(`Error ${Type.toLowerCase()}ing certification:`, error);
       });
   };
 
@@ -377,133 +171,149 @@ const RequestApprovalTab = () => {
         <table>
           <thead>
             <tr>
-              {/* <th>Certification Id</th> */}
-              <th>Certification Name</th>
+              <th>Certificate Name</th>
               <th>EmpId</th>
               <th>Level</th>
-              <th>CertificateURL</th>
-              <th>Status</th>
-              <th>Revoke-Status</th>
-              <th>Comments</th>
-              <th>Action</th>
+              {status === 'In-Progress' && <th>DueDate</th>}
+              {status !== 'In-Progress' && <th>Certificate URL</th>}
+              {status ==='Others' && <th>Status</th>}
+              {status !== 'Completed' && <th>Comments</th>}
+              {status !== 'Completed' && <th className='action-tab'>Action</th>}
             </tr>
           </thead>
           <tbody>
             {certifications.map((certification, index) => (
               <tr key={index}>
-                {/* <td>{certification.CertificationID}</td> */}
                 <td>{certification.CertificationName}</td>
                 <td>{certification.EmpId}</td>
                 <td>{certification.Level}</td>
-                <td style={{ width: '30%' }}>
-                  <a href={certification.CertificateURL} target="_blank" rel="noopener noreferrer">
-                    {certification.CertificateURL}
-                  </a>
-                </td>
-                <td>{certification.Status}</td>
-                <td style={{ whiteSpace: 'nowrap' }}>{certification.RevokeStatus}</td>
-                <td>
-                  {status === 'Approval Pending' || status === 'In-Progress' ? (
-                    <input
-                      type="text"
-                      placeholder="Comment..."
-                      value={commentTexts[certification.CertificationID] || ''}
-                      onChange={(e) => handleCommentChange(certification.CertificationID, e)}
-                    />
-                  ) : (
-                    certification.Comments || ''
-                  )}
-                  {commentError[certification.CertificationID] && (
-                    <p className="error">{commentError[certification.CertificationID]}</p>
-                  )}
-                </td>
-                <td>
-                  {status === 'Approval Pending' && (
-                    <div>
-                      {showCommentInput[certification.CertificationID] ? (
-                        <div>
-                          <button
-                            className="button"
-                            onClick={() => submitComment(certification.CertificationID)}
-                          >
-                            Submit Comment
-                          </button>
-                          <button
-                            className="button"
-                            onClick={() => rejectCertification(certification.CertificationID)}
-                          >
-                            Reject
-                          </button>
-                        </div>
-                      ) : (
-                        <div>
-                          <button
-                            className="button"
-                            onClick={() => approveCertification(certification.CertificationID)}
-                          >
-                            Approve
-                          </button>
-                          <button
-                            className="button"
-                            onClick={() => rejectCertification(certification.CertificationID)}
-                          >
-                            Reject
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  {status === 'In-Progress' && (
-                    <div>
-                      <button
-                        className="button"
-                        onClick={() => onHoldCertification(certification.CertificationID)}
-                      >
-                        On-Hold
-                      </button>
-                      <button
-                        className="button"
-                        onClick={() => revokeCertification(certification.CertificationID)}
-                      >
-                        Revoke
-                      </button>
-                    </div>
-                  )}
-                  {status === 'Others' && certification.Status === 'On-Hold' && (
-                    <div>
-                      {showCommentInput[certification.CertificationID] ? (
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="Comment..."
-                            value={commentTexts[certification.CertificationID] || ''}
-                            onChange={(e) => handleCommentChange(certification.CertificationID, e)}
-                          />
-                          <button
-                            className="button"
-                            onClick={() => ResumeCertification(certification.CertificationID)}
-                          >
-                            Resume
-                          </button>
-                        </div>
-                      ) : (
-                        <div>
-                          <button
-                            className="button"
-                            onClick={() => {
-                              setShowCommentInput((prevShowCommentInput) => ({
-                                ...prevShowCommentInput,
-                                [certification.CertificationID]: true,
-                              }));
-                            }}
-                          >
-                            Resume
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </td>
+                {status === 'In-Progress' && <td>{certification.DueDate}</td>}
+                {status !== 'In-Progress' && (
+                  <td style={{ width: '30%' }}>
+                    <a href={certification.CertificateURL} target="_blank" rel="noopener noreferrer">
+                      {certification.CertificateURL}
+                    </a>
+                  </td>
+                )}
+                {status ==='Others' &&  <td>{certification.Status}</td>}
+                {status !== 'Completed' && (
+                  <td>
+                    {status === 'Approval Pending' || status === 'In-Progress' ? (
+                      <input
+                        type="text"
+                        placeholder="Comment..."
+                        value={commentTexts[certification.CertificationID] || ''}
+                        onChange={(e) => handleCommentChange(certification.CertificationID, e)}
+                      />
+                    ) : (
+                      certification.Comments || ''
+                    )}
+                    {commentError[certification.CertificationID] && (
+                      <p className="error">{commentError[certification.CertificationID]}</p>
+                    )}
+                  </td>
+                )}
+                {status !== 'Completed' && (
+                  <td>
+                    {status === 'Approval Pending' && (
+                      <div>
+                        {showCommentInput[certification.CertificationID] ? (
+                          <div>
+                            <button
+                              className="button"
+                              onClick={() => submitComment(certification.CertificationID)}
+                            >
+                              Submit Comment
+                            </button>
+                            <button
+                              className="button"
+                              onClick={() =>
+                                UpdateCertification(certification.CertificationID, 'Reject', 'Rejected')
+                              }
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        ) : (
+                          <div>
+                            <button
+                              className="button"
+                              onClick={() =>
+                                UpdateCertification(certification.CertificationID, 'Approve', 'Completed')
+                              }
+                            >
+                              Approve
+                            </button>
+                            <button
+                              className="button"
+                              onClick={() =>
+                                UpdateCertification(certification.CertificationID, 'Reject', 'Rejected')
+                              }
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {status === 'In-Progress' && (
+                      <div>
+                        <button
+                          className="button"
+                          onClick={() =>
+                            UpdateCertification(certification.CertificationID, 'On-Hold', 'On-Hold')
+                          }
+                        >
+                          On-Hold
+                        </button>
+                        <button
+                          className="button"
+                          onClick={() =>
+                            UpdateCertification(certification.CertificationID, 'Revoke', 'Revoked')
+                          }
+                        >
+                          Revoke
+                        </button>
+                      </div>
+                    )}
+                    {status === 'Others' && certification.Status === 'On-Hold' && (
+                      <div>
+                        {showCommentInput[certification.CertificationID] ? (
+                          <div >
+                            <input
+                              type="text"
+                              placeholder="Comment..."
+                              value={commentTexts[certification.CertificationID] || ''}
+                              onChange={(e) => handleCommentChange(certification.CertificationID, e)}
+                            />
+                            <button
+                              className="button"
+                              onClick={() =>
+                                UpdateCertification(certification.CertificationID, 'Resume', 'In-Progress')
+                              }
+                            >
+                              Resume
+                            </button>
+                          </div>
+                        ) : (
+                          <div>
+                            <button
+                              className="button"
+                              onClick={() => {
+                                setShowCommentInput((prevShowCommentInput) => ({
+                                  ...prevShowCommentInput,
+                                  [certification.CertificationID]: true,
+                                }));
+                              }}
+                            >
+                              Resume
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
@@ -537,7 +347,10 @@ const RequestApprovalTab = () => {
           <DivByStatus certifications={filteredCertifications} status={selectedStatus} />
         </div>
       ) : (
-        <p>Select a status from the navigation bar above to view certifications.</p>
+        <div>
+          <h2>Approval Pending</h2>
+          <DivByStatus certifications={filteredCertifications} status="Approval Pending" />
+        </div>
       )}
     </div>
   );

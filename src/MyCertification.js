@@ -10,6 +10,13 @@ const MyCertification = () => {
   const [showCertifications, setShowCertifications] = useState(true);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedCertification, setSelectedCertification] = useState(null);
+  const [dataSaved, setDataSaved] = useState(false);
+
+  // function savedata(){
+  //   console.log(savedata)
+  //   setDataSaved(true)
+  //   console.log(savedata)
+  // }
 
   useEffect(() => {
     // Fetch data from the API when the component mounts
@@ -26,54 +33,9 @@ const MyCertification = () => {
         console.error("Error fetching data:", error);
         setCertificationsData([]);
       });
-  }, []);
+  }, [dataSaved]);
 
-  useEffect(() => {
-    // Filter certifications based on the selected status
-    if (selectedStatus === "") {
-      setShowCertifications(false); // Hide certifications initially
-    }  else if (selectedStatus === "Certification Pending for Approval") {
-      const filtered = certificationsData.filter(
-        (certification) =>
-          certification.Status === "Approval Pending" &&
-          certification.RevokeStatus !== "Revoked"
-      );
-      setFilteredCertifications(filtered);
-      setShowCertifications(true); // Show certifications when a filter is applied
-    } else if (selectedStatus === "Completed") {
-      const filtered = certificationsData.filter(
-        (certification) =>
-          certification.Status === "Completed" &&
-          certification.RevokeStatus !== "Revoked"
-      );
-      setFilteredCertifications(filtered);
-      setShowCertifications(true); // Show certifications when a filter is applied
-    } else if (selectedStatus === "In-Progress") {
-      const filtered = certificationsData.filter(
-        (certification) =>
-          certification.Status === "In-Progress" &&
-          certification.RevokeStatus !== "Revoked"
-      );
-      setFilteredCertifications(filtered);
-      setShowCertifications(true); // Show certifications when a filter is applied
-    } else if (selectedStatus === "Others") {
-      const filtered = certificationsData.filter(
-        (certification) =>
-          certification.RevokeStatus === "Revoked" ||
-          !["Completed", "In-Progress", "Approval Pending"].includes(
-            certification.Status
-          )
-      );
-      setFilteredCertifications(filtered);
-      setShowCertifications(true); // Show certifications when a filter is applied
-    } else {
-      const filtered = certificationsData.filter(
-        (certification) => certification.Status === selectedStatus
-      );
-      setFilteredCertifications(filtered);
-      setShowCertifications(true); // Show certifications when a filter is applied
-    }
-  }, [selectedStatus, certificationsData]);
+
 
   const renderCertificationsTable = (certifications) => {
     return (
@@ -139,6 +101,7 @@ const MyCertification = () => {
   };
 
   const handleEdit = (certification) => {
+    setDataSaved(dataSaved=>!dataSaved)
     setSelectedCertification(certification);
     setEditModalOpen(true);
     console.log("Edit button clicked for certification:", certification);
@@ -146,7 +109,10 @@ const MyCertification = () => {
 
   // Function to close the edit modal
   const closeEditModal = () => {
+    setDataSaved(dataSaved=>!dataSaved)
+    // console.log(editModalOpen);
     setEditModalOpen(false);
+    // console.log(editModalOpen);
     setSelectedCertification(null);
   };
 
@@ -161,7 +127,7 @@ const MyCertification = () => {
       UpdatedBy: sessionStorage.getItem("empid"), // Fill in the appropriate values
       IssuedOn: editedData.IssuedOn, // Fill in the appropriate values
       ExpiryDate: editedData.ExpiryDate, // Fill in the appropriate values
-      CertificateUrl: editedData.CertificateURL, // Fill in the appropriate values
+      CertificateURL: editedData.CertificateURL, // Fill in the appropriate values
       Score: editedData.Score, // Fill in the appropriate values
     };
     try {
@@ -177,6 +143,55 @@ const MyCertification = () => {
     }
     console.log("Edited Data:", editedData);
   };
+
+
+  useEffect(() => {
+    // Filter certifications based on the selected status
+    // setDataSaved(dataSaved=>!dataSaved)
+    if (selectedStatus === "") {
+      setShowCertifications(false); // Hide certifications initially
+    }  else if (selectedStatus === "Certification Pending for Approval") {
+      const filtered = certificationsData.filter(
+        (certification) =>
+          certification.Status === "Approval Pending" &&
+          certification.RevokeStatus !== "Revoked"
+      );
+      setFilteredCertifications(filtered);
+      setShowCertifications(true); // Show certifications when a filter is applied
+    } else if (selectedStatus === "Completed") {
+      const filtered = certificationsData.filter(
+        (certification) =>
+          certification.Status === "Completed" &&
+          certification.RevokeStatus !== "Revoked"
+      );
+      setFilteredCertifications(filtered);
+      setShowCertifications(true); // Show certifications when a filter is applied
+    } else if (selectedStatus === "In-Progress") {
+      const filtered = certificationsData.filter(
+        (certification) =>
+          certification.Status === "In-Progress" &&
+          certification.RevokeStatus !== "Revoked"
+      );
+      setFilteredCertifications(filtered);
+      setShowCertifications(true); // Show certifications when a filter is applied
+    } else if (selectedStatus === "Others") {
+      const filtered = certificationsData.filter(
+        (certification) =>
+          certification.RevokeStatus === "Revoked" ||
+          !["Completed", "In-Progress", "Approval Pending"].includes(
+            certification.Status
+          )
+      );
+      setFilteredCertifications(filtered);
+      setShowCertifications(true); // Show certifications when a filter is applied
+    } else {
+      const filtered = certificationsData.filter(
+        (certification) => certification.Status === selectedStatus
+      );
+      setFilteredCertifications(filtered);
+      setShowCertifications(true); // Show certifications when a filter is applied
+    }
+  }, [selectedStatus, certificationsData,dataSaved]);
 
   return (
     <div className="container">
@@ -221,6 +236,7 @@ const MyCertification = () => {
           certification={selectedCertification}
           onClose={closeEditModal}
           onSave={saveEditedData}
+          // onsavedata={savedata}
         />
       )}
     </div>

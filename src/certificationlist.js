@@ -11,9 +11,10 @@ function Certifications() {
 
   const navigate = useNavigate();
 
-  const handleClick = (certificateID) => {
+  const handleClick = (certificateID,certificatename) => {
     // Navigate to the '/home/QA' route with the certificateID as a URL parameter
-    navigate(`/QA/${certificateID}`);
+    console.log(certificatename)
+    navigate(`/QA/${certificateID}`,{ state: { certificatename } });
   }
 
 
@@ -35,7 +36,7 @@ function Certifications() {
       <div className="all-cards">
         {certifications.map((certification) => (
           <div className="certificate-card"
-            onClick={() => handleClick(certification.certificateid)}
+            onClick={() => handleClick(certification.certificateid,certification.certificatename)}
             key={certification.certificateid}
             style={{
               margin: "2%",

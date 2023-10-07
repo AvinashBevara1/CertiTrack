@@ -1,85 +1,90 @@
 /* Styles for the container */
 .container {
-    margin: 20px;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    /* width: 100%; */
-    overflow: scroll;
-  }
-  
-  .container::-webkit-scrollbar {
-    display: none;
-  }
-  /* Styles for status buttons */
-  .status-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .status-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Styles for the table */
-  .table-container {
-    overflow-x: auto;
-    border-radius: 10px;
-    border: 2px solid lightgray;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  /* width: 100%; */
+  overflow: scroll;
+}
 
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  table th, table td {
-    padding: 8px 12px;
-    text-align: left;
-    /* width: 200px; */
-    border-bottom: 1px solid #ddd;
-  }
-  
-  table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
-  
-  /* Styles for input and error messages */
-  .MT-comment {
-    width: 100%;
-    height: 50px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-  }
-  
-  .error {
-    color: #ff0000;
-    font-size: 12px;
-  }
-  
-  /* Styles for action buttons */
-  .button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    width:100px;
-    margin-top: 5px;
-    padding: 5px 10px;
-    margin-right: 5px;
-    cursor: pointer;
-    border-radius: 3px;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  /* tr:nth-child(odd) {background-color:rgb(173, 244, 254);} */
-  tr:nth-child(odd) {background-color:white;}
+.container::-webkit-scrollbar {
+  display: none;
+}
+/* Styles for status buttons */
+.status-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.status-button:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for the table */
+.table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 2px solid lightgray;
+
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 8px 12px;
+  text-align: left;
+  /* width: 200px; */
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Styles for input and error messages */
+.MT-comment {
+  width: 100%;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 12px;
+}
+
+/* Styles for action buttons */
+.button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  width:100px;
+  margin-top: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+/* tr:nth-child(odd) {background-color:rgb(173, 244, 254);} */
+tr:nth-child(odd) {background-color:white;}
+
+.action-tab{
+  width: 200px;
+}

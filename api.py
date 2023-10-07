@@ -90,9 +90,15 @@ class CertificateEntry(BaseModel):
 
 @app.post("/submit-certificate")
 async def submit_certificate(data: CertificateEntry):
-    cursor.execute("exec Addcertification @certificateIDfk=?, @empID=?, @assignedby=?,@createdby=?,@comments=?,@duedate=?,@issuedon=?,@expirydate=?,@certificateurl=?,@score=?,@status=?", (data.CertificateID, data.EmpID,data.AssignedBy,data.CreatedBy,data.Comments,data.DueDate,data.IssuedOn,data.ExpiryDate,data.CertificateURL,data.Score,data.Status))
+    cursor.execute("set NOCOUNT ON; declare @SubmitResponse varchar(50); exec Addcertification @certificateIDfk=?, @empID=?, @assignedby=?,@createdby=?,@comments=?,@duedate=?,@issuedon=?,@expirydate=?,@certificateurl=?,@score=?,@status=?,@SubmitResponse=@SubmitResponse OUTPUT;select @SubmitResponse as SubmitResponse", (data.CertificateID, data.EmpID,data.AssignedBy,data.CreatedBy,data.Comments,data.DueDate,data.IssuedOn,data.ExpiryDate,data.CertificateURL,data.Score,data.Status))
+
+    SubmitResponse = cursor.fetchone()
+    print(SubmitResponse[0])
+    # Commit the transaction
     connection.commit()
 
+    # Return the maxID value
+    return {"SubmitResponse": SubmitResponse[0]}
 
 @app.get("/get-reportees/{EmpID}")
 async def getreporteesdropdown(EmpID: str):
@@ -194,7 +200,7 @@ async def GetEmpCertificate(EmpID: str,Type: str):
     cursor.execute("exec GetCertifications @EmpId = ?, @Type = ?", (EmpID,Type,))
     TotalCertifications = cursor.fetchall()
     ReporteesCertification= []
-
+    print(TotalCertifications)
     for cer in TotalCertifications:
         data = {
             "CertificationID":cer.CertificationId,
@@ -208,7 +214,8 @@ async def GetEmpCertificate(EmpID: str,Type: str):
             "RevokeStatus":cer.RevokeStatus,
             "Status":cer.STATUS,
             "Comments":cer.Comments,
-            "ApprovedBy":cer.ApprovedBy,    
+            "ApprovedBy":cer.ApprovedBy,
+            "CertificateURL":cer.CertificateURL        
         }
 
         ReporteesCertification.append(data)
@@ -248,12 +255,18 @@ class CompleteCertification(BaseModel):
 
 @app.post("/complete-certification/")
 async def getreporteesdropdown(data:CompleteCertification):
-    print(data)
+    # print(data)
     cursor.execute("exec UpdateCertification @CertificationId = ?, @Type = ?, @Comments = ?, @UpdatedBy = ?,@IssuedOn=?,@ExpiryDate=?,@CertificateUrl=?,@Score=?", (data.CertificationId,data.Type,data.Comments,data.UpdatedBy,data.IssuedOn,data.ExpiryDate,data.CertificateUrl,data.Score))
     connection.commit()
     return ''
 
 
+@app.get("/getname/{EmpId}")
+async def getname(EmpId:str):
+   data=cursor.execute(f"select EmpName, Email from employee where EmpId={EmpId}").fetchall()
+   print(data[0])
+   return {"EmpName":data[0].EmpName,"Email":data[0][1]}
+#    return {"data":data}
 
 if __name__ == "__main__":
    uvicorn.run("api:app", host="localhost", port=8000, reload=True)

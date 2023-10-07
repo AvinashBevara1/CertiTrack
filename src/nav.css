@@ -9,6 +9,9 @@ body {
   display: flex;
   /* height: 100vh; */
 }
+
+
+
 .entireview{
   display: grid;
   grid-template-rows: 10% 90%;
@@ -60,6 +63,19 @@ body {
   padding: 10px 20px;
   /* height: 5vh; */
   position: sticky;
+}
+
+.logout{
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 10px 20px;
+
+}
+
+.profilename{
+  display: flex;
+  justify-content: space-between;
 }
 
 .profile {

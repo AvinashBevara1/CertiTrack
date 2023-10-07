@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import './EditCertificationModal.css'
 
-const EditCertificationModal = ({ certification, onClose, onSave }) => {
+const EditCertificationModal = ({ certification, onClose, onSave}) => {
   const [issuedOn, setIssuedOn] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [score, setScore] = useState("");
@@ -20,6 +20,7 @@ const EditCertificationModal = ({ certification, onClose, onSave }) => {
         CertificateURL: certificateURL,
         Comments: comments
       });
+    //   onsavedata();
       onClose();
     } else {
       alert("Please fill in all fields.");

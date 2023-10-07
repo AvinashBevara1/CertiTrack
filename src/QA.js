@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./QA.css";
 
-function Qa() {
+function Qa(props) {
   const { certificateID } = useParams();
-
+  // const { certificatename } = props;
+  const location = useLocation();
+  const { certificatename } = location.state;
   const [certifiedpeople, setCertifiedPeople] = useState([]);
   const [qaList, setQAList] = useState([]);
   const [newQuestion, setNewQuestion] = useState("");
@@ -14,7 +17,7 @@ function Qa() {
 
   // Maintain separate states for answers
   const [answerInputs, setAnswerInputs] = useState([]);
-
+  // console.log(certificatename)
   useEffect(() => {
     // Initialize answerInputs with empty strings for each question
     const initialAnswerInputs = qaList.map((qaItem) => "");
@@ -107,6 +110,9 @@ function Qa() {
   return (
     <div className="qa-container">
       <div className="certifiedpeople">
+        <h2 style={{ color: "#007bff", fontweight: "bold" }}>
+          {certificatename}
+        </h2>
         <h2>Certified People</h2>
         <ul>
           {certifiedpeople.map((certifiedemployee) => (
@@ -120,7 +126,12 @@ function Qa() {
       <div className="qa-section">
         <h1>Q&A Page</h1>
         <div className="qa-input">
-          <input
+          <textarea
+            style={{
+              width: "calc(100% - 20px)",
+              height: "50px",
+              resize: "none",
+            }}
             type="text"
             placeholder="Ask a question"
             value={newQuestion}
@@ -150,12 +161,17 @@ function Qa() {
                     <span className="created-date">
                       Answered on: {answer.AnsweredOn}
                     </span>
-                    <span className="votes">Votes: {answer.Votes}</span>
+                    {/* <span className="votes">Votes: {answer.Votes}</span> */}
                   </li>
                 ))}
               </ul>
               <div className="qa-answer-input">
-                <input
+                <textarea
+                  style={{
+                    width: "calc(100% - 20px)",
+                    height: "50px",
+                    resize: "none",
+                  }}
                   type="text"
                   placeholder="Write an answer"
                   value={answerInputs[index]}
